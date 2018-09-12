@@ -76,7 +76,6 @@ module Creek
       end
 
       def self.convert_unknown(value)
-        value.
         begin
           if value.nil? or value.empty?
             return value
