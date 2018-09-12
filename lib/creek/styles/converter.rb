@@ -59,7 +59,7 @@ module Creek
         when :unsupported
           convert_unknown(value)
         when :fixnum
-          value.to_i
+          value
         when :float, :percentage
           value.to_f
         when :date
@@ -74,14 +74,15 @@ module Creek
           convert_unknown(value)
         end
       end
-      
+
       def self.convert_unknown(value)
+        value.
         begin
           if value.nil? or value.empty?
             return value
           elsif value.to_i.to_s == value.to_s
             return value.to_i
-          elsif value.to_f.to_s == value.to_s
+          elsif float?(value)
             return value.to_f
           else
             return value
@@ -89,6 +90,10 @@ module Creek
         rescue
           return value
         end
+      end
+
+      def self.float?(value)
+        value.match?(/^[0-9]+\.*[0-9]+$/)
       end
 
       def self.convert_date(value, options)
